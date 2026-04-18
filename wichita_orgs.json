@@ -1,0 +1,95 @@
+{
+  "location": "Wichita, KS",
+  "organizations": [
+    {
+      "name": "Second Light",
+      "type": "Multi-agency shelter / one-stop resource hub",
+      "summary": "Second Light (formerly the Multi-Agency Center, or MAC) is a City of Wichita-backed shelter-plus-services facility at 1025 N. Main on the former Park Elementary School site. It is being developed as a one-stop hub that consolidates shelter, housing assistance, mental health care, substance abuse treatment, and wrap-around services under one roof. The City committed roughly $6M in ARPA funds for construction plus ~$5M toward operations for the first two years. It is the city's first shelter-plus-service model and is central to Wichita's stated goal of reaching 'functional zero' homelessness.",
+      "sources": [
+        "https://secondlightwichita.org/",
+        "https://www.wichita.gov/1609/Second-Light-Formerly-MAC"
+      ]
+    },
+    {
+      "name": "United Methodist Open Door",
+      "type": "Daytime homeless resource center",
+      "summary": "Open Door runs the largest homeless day shelter in Wichita, the Homeless Resource Center (HRC) at 402 E 2nd St. It provides a safe daytime space for homeless adults and families to bathe, do laundry, receive mail, eat, store belongings, and meet with case managers. The site also hosts partner agencies and offers on-site medical and mental health care, plus a clothing closet. Hours are Mon–Fri 7 a.m.–5 p.m.; eligibility requires homeless verification, age 18+, and an on-site TB test.",
+      "sources": [
+        "https://umopendoor.org/",
+        "https://www.shelterlistings.org/details/20735"
+      ]
+    },
+    {
+      "name": "H.O.T. (Homeless Outreach Team)",
+      "type": "Police-based street outreach unit",
+      "summary": "H.O.T. is a specialized Wichita Police Department patrol unit that responds to 911 calls involving homeless individuals. Officers focus on diverting people from jail into shelter and services, helping secure ID documents, mental health support, and long-term housing. The team builds trust over months or years with the street population. Wichita's H.O.T. has been nationally recognized as a best practice and is credited with a 78% reduction in chronic homelessness since 2011.",
+      "sources": [
+        "https://www.wichita.gov/818/Homeless-Outreach-Team-HOT",
+        "https://bja.ojp.gov/sites/g/files/xyckuh186/files/media/document/hot_sop.pdf"
+      ]
+    },
+    {
+      "name": "CrossRoads (Wichita Children's Home)",
+      "type": "Drop-in center and 30+ day program for youth",
+      "summary": "CrossRoads is operated by the Wichita Children's Home at 1110 N Emporia St. and serves runaway, homeless, and at-risk youth 24 and under. The Drop-In Center is a low-barrier space offering hot meals, clothing, hygiene items, food bags, and free Wi-Fi five days a week. Its longer 30+ day program helps youth build goals for stable housing, education, and employment. A paired Street Outreach van serves youth 12–21, providing crisis response, blankets, supplies, and transport to shelter at no cost.",
+      "sources": [
+        "https://wch.org/services/crossroads",
+        "https://wch.org/who-we-serve/homelessness/crossroads-shelter/"
+      ]
+    },
+    {
+      "name": "BRIDGES (Wichita Children's Home)",
+      "type": "Transitional housing for older youth",
+      "summary": "BRIDGES (Building Responsibility and Independence, Development of Goals and Empowerment Skills) is a two-phase transitional residential therapeutic program on the Wichita Children's Home campus. It provides fully furnished individual apartments for youth ages 16–22 who are aging out of foster care, experiencing homelessness, pregnant/parenting, trafficking survivors, or living in unsafe conditions. Staffed 24/7, it delivers trauma-informed case management, education and career planning, substance-use support, and independent-living skills like cooking and budgeting. The goal is to bridge youth from care into stable independent adulthood.",
+      "sources": [
+        "https://wch.org/services/bridges",
+        "https://sheltersforhomeless.com/shelter-7187.html"
+      ]
+    },
+    {
+      "name": "DCF IL (Kansas Department for Children and Families, Independent Living Program)",
+      "type": "State program for former foster youth",
+      "summary": "Kansas DCF's Independent Living Program supports young adults who were in foster care at age 14 or older, with supports available through age 26. Services include rent assistance, household start-up funds, car repair help, and a monthly Independent Living Subsidy until age 21. Chafee funds support high school/GED completion, budgeting, and transportation; Education and Training Vouchers (ETV) cover up to 5 years of post-secondary education. Medicaid coverage is available until the month the youth turns 26. Contact: DCF IL Program Manager, 785-368-8192.",
+      "sources": [
+        "https://www.dcf.ks.gov/services/pps/pages/independentlivingprogram.aspx",
+        "https://www.dcf.ks.gov/services/PPS/Documents/IL%20Self-Sufficiency%20Program%20Brochure.pdf"
+      ]
+    },
+    {
+      "name": "City of Wichita ID",
+      "type": "Free municipal identification card",
+      "summary": "Launched June 30, 2025, the City of Wichita ID is a free, low-barrier photo ID available to all Wichita residents age 14+. The card displays name, photo, address, date of birth, and ID number and is I-9 compliant, meaning it can be used to verify identity for employment, benefits, prescriptions, and check cashing. It is valid for three years and is designed to help people access city services and participate fully in society. Applications are made in person at City Hall or online at wichita.gov/WichitaID. It cannot be used for voting or voter registration.",
+      "sources": [
+        "https://www.wichita.gov/1751/City-of-Wichita-ID",
+        "https://klcjournal.com/wichita-rolled-out-a-municipal-id-heres-how-its-gone-so-far-and-how-to-get-yours/"
+      ]
+    },
+    {
+      "name": "NEXTenant",
+      "type": "Landlord–tenant matching platform for people exiting homelessness",
+      "summary": "NEXTenant is a joint program of United Way of the Plains and the Coalition to End Homelessness in Wichita/Sedgwick County. It is an online listing service that connects landlords with renters transitioning out of homelessness, with rent subsidized by vouchers and capped at 30% of renter income. Voucher support ranges from rapid-rehousing (6–9 months) to lifetime assistance. Landlords get holding-fee coverage, case-manager communication, tenant education tools, and mediation/eviction-prevention support. Contact: Shylee Ziad, United Way of the Plains, (316) 267-1321 ext. 4122.",
+      "sources": [
+        "https://unitedwayplains.org/nextenant-is-opening-doors-to-a-fresh-start/",
+        "https://www.ksn.com/news/new-local-homeless-housing-program-in-search-of-landlords/"
+      ]
+    },
+    {
+      "name": "Housing First",
+      "type": "Homeless-services model / philosophy",
+      "summary": "Housing First is an evidence-based approach that prioritizes getting people into permanent housing immediately, without requiring sobriety, treatment compliance, or 'housing readiness' prerequisites. The core belief is that stable housing is the foundation from which people can then address employment, health, and substance-use issues. Supportive services are offered but voluntary, since participation is more effective when chosen. Research consistently shows Housing First participants access housing faster and stay stably housed longer than those in treatment-first or stepped-care models.",
+      "sources": [
+        "https://endhomelessness.org/resources/toolkits-and-training-materials/housing-first/",
+        "https://en.wikipedia.org/wiki/Housing_First"
+      ]
+    },
+    {
+      "name": "Rapid Rehousing (RRH)",
+      "type": "HUD-defined permanent housing intervention",
+      "summary": "Rapid Rehousing is a HUD homeless-assistance strategy providing short-term (up to 3 months) and medium-term (4–24 months) tenant-based rental assistance plus supportive services to move people from homelessness into permanent housing quickly. Tenants hold a standard one-year lease even if subsidy duration is shorter, and they meet monthly with a case manager. RRH does not require a disability diagnosis and is funded through HUD's CoC and ESG programs. Evidence is strong: HMIS data shows only ~10% of households return to homelessness within 12 months of program exit.",
+      "sources": [
+        "https://www.hudexchange.info/homelessness-assistance/coc-esg-virtual-binders/coc-program-components/permanent-housing/rapid-re-housing/",
+        "https://www.hudexchange.info/homelessness-assistance/coc-esg-virtual-binders/esg-program-components/rapid-re-housing/"
+      ]
+    }
+  ]
+}
