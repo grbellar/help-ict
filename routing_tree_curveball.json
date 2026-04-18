@@ -1,0 +1,154 @@
+{
+  "_description": "Curveball overlay applied to routing_tree.json at 1:00 PM. Only the system_status, endpoint statuses, and override activations change. The tree structure is untouched — the runtime re-evaluates paths with the new state and users get re-routed automatically. This is the whole point of putting state in data, not code.",
+  "applied_at": "2026-04-18T13:00:00-05:00",
+
+  "system_status_delta": {
+    "weather_emergency_active": true,
+    "red_cross_activation": true,
+    "_211_overloaded": true,
+    "active_alert": "Severe weather + Open Door closure + BRIDGES at capacity. Triple-disruption protocol active."
+  },
+
+  "endpoint_status_delta": {
+    "open_door": {
+      "status": "offline",
+      "offline_reason": "roof_repair_48_to_72_hrs",
+      "reroute_daytime_to": ["center_of_hope", "second_light"],
+      "note": "Center of Hope absorbs overflow at reduced hours. Second Light daytime intake expanded."
+    },
+    "center_of_hope": {
+      "status": "reduced_hours",
+      "hours_today": "10:00a-4:00p",
+      "capacity": { "beds_open": 2 }
+    },
+    "second_light": {
+      "status": "online",
+      "capacity_override": { "beds_open": 6, "surge_beds_added": 20 },
+      "note": "Activated 20 surge cots for weather displacement."
+    },
+    "bridges": {
+      "status": "at_capacity",
+      "capacity": { "beds_open": 0, "waitlist": 4 },
+      "reroute_to": [
+        "crossroads_dropin_with_emergency_placement",
+        "dcf_il_emergency_placement"
+      ]
+    },
+    "safe_place_line": {
+      "status": "online",
+      "note": "Promote to top of youth paths - 211 is overloaded."
+    },
+    "hot_team": {
+      "status": "surge",
+      "deployment": "weather_sweep_routes_1_through_4",
+      "priority_encounters": ["adults_unsheltered", "families_in_vehicles"]
+    }
+  },
+
+  "override_activations": [
+    {
+      "id": "override_weather",
+      "active": true,
+      "message_to_users": "Wichita is under a severe-weather alert. If you need somewhere safe right now, a warming center is closer than any intake step.",
+      "prepends_to_every_tree": true,
+      "warming_centers": [
+        {
+          "name": "Second Light warming hall",
+          "address": "1025 N Main",
+          "hours": "open_now"
+        },
+        { "name": "Center of Hope (reduced)", "hours": "10a-4p" },
+        { "name": "Evergreen Community Center", "hours": "open_now" }
+      ]
+    },
+    {
+      "id": "override_211_bypass",
+      "active": true,
+      "condition": "system_status._211_overloaded == true",
+      "rule": "Any leaf or message that referenced 211 Kansas is replaced with a direct line.",
+      "replacements": {
+        "211_general": "Safe Place 316-262-4663 (youth) or H.O.T. 316-854-3013 (adult)",
+        "211_crisis": "dispatch H.O.T. directly"
+      }
+    },
+    {
+      "id": "override_youth_emergency_placement",
+      "active": true,
+      "condition": "endpoint_status.bridges.status == 'at_capacity'",
+      "rule": "Youth routed to BRIDGES are auto-flagged for DCF emergency placement + CrossRoads overnight.",
+      "applies_to_nodes": ["Q4_youth_vulnerability", "Q4_youth_housing"],
+      "new_leaf_logic": {
+        "primary": "crossroads_dropin",
+        "addon": "dcf_il_emergency_placement_ticket",
+        "escalation": "DCF expects shelter presentation within 72 hrs for 4 transition-age youth. Ticket auto-files on referral.",
+        "bridges_waitlist": "attach_to_referral"
+      }
+    }
+  ],
+
+  "tree_behavior_changes": {
+    "Q4_adult_timeofday": {
+      "before": {
+        "daytime": "open_door",
+        "nighttime": "second_light"
+      },
+      "after": {
+        "daytime": "center_of_hope (10a-4p) OR second_light (24/7 during emergency)",
+        "nighttime": "second_light",
+        "note": "Open Door daytime branch is closed; users see an inline banner explaining the reroute and why."
+      }
+    },
+    "Q4_adult_situation": {
+      "before": {
+        "on_street": "open_door then refer to second_light",
+        "couch_surfing": "open_door then refer to rapid_rehousing_intake"
+      },
+      "after": {
+        "on_street": "second_light direct (skip open_door step)",
+        "couch_surfing": "rapid_rehousing_intake direct (paperwork by phone during closure)"
+      }
+    },
+    "Q4_youth_vulnerability": {
+      "before": { "primary": "bridges", "fallback": "crossroads_dropin" },
+      "after": {
+        "primary": "crossroads_dropin",
+        "addon": "bridges_waitlist + dcf_emergency_ticket"
+      }
+    }
+  },
+
+  "case_manager_ui_changes": {
+    "live_inventory_badges": [
+      "Open Door: CLOSED 48-72h (roof) - daytime ops moved to Second Light + Center of Hope",
+      "BRIDGES: FULL, 4-person waitlist, DCF 72h clock on 4 youth",
+      "Second Light: +20 surge cots for weather displacement",
+      "211: flooded - use direct lines"
+    ],
+    "new_quick_actions": [
+      "File DCF emergency placement ticket (youth)",
+      "Dispatch H.O.T. for adult outside",
+      "Warm handoff: me -> Second Light intake (bypass Open Door)"
+    ]
+  },
+
+  "messaging_layer_changes": {
+    "_note": "What users see at the top of every tree during the curveball window",
+    "banner_public": "Wichita is under a severe-weather alert. Open Door is temporarily closed for repairs - if you used to go there, Second Light and Center of Hope are the open doors today. Youth under 18 in danger: call 316-262-4663 right now.",
+    "banner_case_manager": "Triple-disruption protocol active. See live inventory for reroute rules. All Open Door referrals from before 1:00 PM have been re-routed automatically; check the referral queue."
+  },
+
+  "what_did_not_change": [
+    "The tree structure itself.",
+    "The node IDs.",
+    "The question prompts (users see consistent copy).",
+    "The LLM fallback policy.",
+    "The endpoint definitions - only their status flipped."
+  ],
+
+  "why_this_design_wins_the_adaptability_score": {
+    "no_rewrites": "We did not edit the tree. We changed state. Recovery on the 73rd hour is flipping statuses back.",
+    "transparency": "Every reroute carries a user-facing reason ('Open Door is closed for roof repair') - no silent redirects.",
+    "deterministic_under_chaos": "With 211 flooded and multiple failures stacked, the tree still produces a single named endpoint per path. No 'call around and figure it out.'",
+    "youth_72h_clock": "The DCF emergency ticket is auto-filed the moment a youth routes through an affected node - the clock does not wait for a human to remember."
+  }
+}

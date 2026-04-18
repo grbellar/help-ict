@@ -1,0 +1,516 @@
+{
+  "schema_version": "1.0",
+  "compiled_at": "2026-04-18T10:00:00Z",
+  "compiled_by": "llm_offline_pass",
+  "description": "No Wrong Door routing tree for Wichita homeless + foster-youth services. Runtime evaluates deterministically. LLM is called only when a node has llm_fallback=true and user input doesn't match any branch.",
+
+  "system_status": {
+    "weather_emergency_active": false,
+    "red_cross_activation": false,
+    "_211_overloaded": false,
+    "notes": "Flipped by ops dashboard or live API. Drives override evaluation and endpoint fallbacks."
+  },
+
+  "endpoints": {
+    "crossroads_dropin": {
+      "name": "CrossRoads Drop-In Center",
+      "operator": "Wichita Children's Home",
+      "address": "1110 N Emporia St, Wichita KS",
+      "phone": "316-440-9300",
+      "hours": "Mon-Fri, 5 days/wk (see site)",
+      "serves": ["youth_under_25"],
+      "offers": ["hot_meal", "clothing", "hygiene", "case_mgmt", "wifi"],
+      "eligibility": ["age <= 24"],
+      "bring": ["none_required"],
+      "status": "online",
+      "capacity": { "beds_open": null, "slots_open": 4 }
+    },
+    "crossroads_street": {
+      "name": "CrossRoads Street Outreach",
+      "operator": "Wichita Children's Home",
+      "phone": "316-440-9300",
+      "crisis_line": "316-262-4663",
+      "hours": "van dispatches 24/7 via Safe Place line",
+      "serves": ["youth_12_to_21"],
+      "offers": ["pickup", "shelter_transport", "blankets", "first_aid"],
+      "eligibility": ["age 12-21", "on_street_or_unsafe"],
+      "status": "online"
+    },
+    "bridges": {
+      "name": "BRIDGES",
+      "operator": "Wichita Children's Home",
+      "address": "WCH campus, Wichita KS",
+      "email": "BRIDGES@wch.org",
+      "hours": "24/7 staffed",
+      "serves": ["youth_16_to_22"],
+      "offers": [
+        "transitional_apartment",
+        "case_mgmt",
+        "life_skills",
+        "trauma_support"
+      ],
+      "eligibility_any_of": [
+        "aging_out_foster",
+        "pregnant_parenting",
+        "trafficking_survivor",
+        "unsafe_housing",
+        "homeless"
+      ],
+      "status": "online",
+      "capacity": { "beds_open": 2 }
+    },
+    "open_door": {
+      "name": "United Methodist Open Door - Homeless Resource Center",
+      "address": "402 E 2nd St, Wichita KS",
+      "phone": "316-265-9371",
+      "hours": "Mon-Fri 7:00a-5:00p",
+      "serves": ["adults_18_plus", "families"],
+      "offers": [
+        "daytime_shelter",
+        "shower",
+        "laundry",
+        "mail",
+        "case_mgmt",
+        "medical_graced"
+      ],
+      "eligibility": ["age >= 18", "homeless_verified", "tb_test_onsite"],
+      "bring": ["photo_id_helpful_not_required"],
+      "status": "online"
+    },
+    "second_light": {
+      "name": "Second Light (formerly MAC)",
+      "address": "1025 N Main St, Wichita KS",
+      "hours": "24/7 shelter intake (coming online 2026)",
+      "serves": ["adults_18_plus"],
+      "offers": ["shelter_bed", "mental_health", "substance_tx", "housing_nav"],
+      "eligibility": ["age >= 18", "homeless"],
+      "status": "online",
+      "capacity": { "beds_open": 12 }
+    },
+    "center_of_hope": {
+      "name": "Center of Hope (overflow)",
+      "role": "overflow_for_second_light_and_open_door",
+      "status": "online",
+      "hours": "varies",
+      "capacity": { "beds_open": 5 }
+    },
+    "hot_team": {
+      "name": "Wichita Police H.O.T. (Homeless Outreach Team)",
+      "phone": "316-854-3013",
+      "hours": "patrol hours; 911 for immediate",
+      "serves": ["adults_outside", "encounter_based"],
+      "offers": [
+        "field_response",
+        "transport_to_shelter",
+        "id_assistance",
+        "diversion_from_jail"
+      ],
+      "status": "online"
+    },
+    "dcf_il": {
+      "name": "Kansas DCF Independent Living Program",
+      "phone": "785-368-8192",
+      "serves": ["former_foster_youth"],
+      "eligibility": ["foster_care_at_age_14_plus", "age <= 26"],
+      "offers": [
+        "subsidy",
+        "medicaid_to_26",
+        "etv",
+        "chafee_funds",
+        "rent_startup",
+        "car_repair"
+      ],
+      "status": "online"
+    },
+    "city_id": {
+      "name": "City of Wichita ID",
+      "address": "City Hall, 455 N Main",
+      "url": "wichita.gov/WichitaID",
+      "serves": ["residents_14_plus"],
+      "offers": ["free_photo_id", "i9_compliant", "3yr_validity"],
+      "eligibility": ["wichita_resident", "age >= 14"],
+      "status": "online"
+    },
+    "nextenant": {
+      "name": "NEXTenant",
+      "operator": "United Way of the Plains + Coalition to End Homelessness",
+      "phone": "316-267-1321 x4122",
+      "serves": ["voucher_holders_exiting_homelessness"],
+      "offers": ["landlord_match", "holding_fee_coverage", "mediation"],
+      "eligibility": ["has_voucher_or_rrh_enrollment"],
+      "status": "online",
+      "capacity": { "units_available": 7 }
+    },
+    "rapid_rehousing_intake": {
+      "name": "Rapid Rehousing (via Open Door / CoC)",
+      "serves": ["literally_homeless"],
+      "offers": ["3_to_24mo_rental_subsidy", "case_mgmt", "1yr_lease_required"],
+      "eligibility": ["literally_homeless", "intake_via_partner"],
+      "status": "online"
+    },
+    "safe_place_line": {
+      "name": "Safe Place 24h Crisis Line",
+      "phone": "316-262-4663",
+      "serves": ["youth_under_18_emergency"],
+      "status": "online"
+    },
+    "dv_handoff": {
+      "name": "YWCA Women's Crisis Center (DV path)",
+      "role": "handoff_partner_not_in_assets_list",
+      "status": "online"
+    },
+    "family_handoff": {
+      "name": "St. Anthony / Family Promise (family shelter)",
+      "role": "handoff_partner_not_in_assets_list",
+      "status": "online"
+    },
+    "volunteer_coordinator": {
+      "name": "Volunteer with a Wichita partner",
+      "role": "aggregator",
+      "partners": [
+        { "name": "Wichita Children's Home", "url": "wch.org" },
+        { "name": "United Methodist Open Door", "url": "umopendoor.org" },
+        { "name": "Second Light", "url": "secondlightwichita.org" }
+      ],
+      "status": "online"
+    },
+    "donate_info": {
+      "name": "Donate to the coalition fund",
+      "role": "aggregator",
+      "note": "Donations are pooled by the Coalition to End Homelessness and the United Way of the Plains to fill gaps across all partners.",
+      "status": "online"
+    },
+    "employer_partner": {
+      "name": "Hire through the Second Chance employer network",
+      "role": "aggregator",
+      "note": "Connects employers with people exiting homelessness or aging out of foster care. Partner agencies pre-screen and provide 90-day retention support.",
+      "status": "online"
+    },
+    "warming_center": {
+      "name": "Warming / cooling center (active only during weather emergency)",
+      "role": "emergency_only",
+      "locations": [
+        {
+          "name": "Second Light warming hall",
+          "address": "1025 N Main St"
+        },
+        { "name": "Center of Hope (reduced hours)" },
+        { "name": "Evergreen Community Center" }
+      ],
+      "status": "standby"
+    }
+  },
+
+  "flags": {
+    "_description": "Flags accumulated during traversal. Influence later branches and endpoint eligibility.",
+    "foster_history": {
+      "type": "bool",
+      "default": false,
+      "unlocks": ["dcf_il"]
+    },
+    "has_voucher": {
+      "type": "bool",
+      "default": false,
+      "unlocks": ["nextenant"]
+    },
+    "has_photo_id": {
+      "type": "bool",
+      "default": false,
+      "gates": ["employment", "benefits", "most_housing"]
+    },
+    "with_kids": {
+      "type": "bool",
+      "default": false,
+      "routes_to": ["family_handoff"]
+    },
+    "dv_flag": {
+      "type": "bool",
+      "default": false,
+      "routes_to": ["dv_handoff"]
+    },
+    "needs_bed_tonight": { "type": "bool", "default": false }
+  },
+
+  "overrides": [
+    {
+      "id": "override_weather",
+      "priority": 1,
+      "condition": "system_status.weather_emergency_active == true",
+      "action": "prepend_endpoint",
+      "endpoint": "warming_or_cooling_center",
+      "message": "Weather emergency active. Nearest safe indoor space first; full intake after."
+    },
+    {
+      "id": "override_dv",
+      "priority": 2,
+      "condition": "flags.dv_flag == true",
+      "action": "redirect",
+      "endpoint": "dv_handoff",
+      "message": "DV path is separate from general homeless services."
+    },
+    {
+      "id": "override_no_id_reminder",
+      "priority": 3,
+      "condition": "flags.has_photo_id == false",
+      "action": "attach_addon",
+      "endpoint": "city_id",
+      "message": "No ID detected. Add City of Wichita ID to this visit."
+    }
+  ],
+
+  "trees": {
+    "person_in_need": {
+      "root": "Q0a_for_whom",
+      "nodes": {
+        "Q0a_for_whom": {
+          "type": "question",
+          "prompt": "Who are you asking for?",
+          "options": [
+            { "label": "For me", "next": "Q1_age" },
+            {
+              "label": "For someone else",
+              "redirect_tree": "worried_about_someone"
+            }
+          ],
+          "llm_fallback": false
+        },
+
+        "Q1_age": {
+          "type": "question",
+          "prompt": "How old are you?",
+          "options": [
+            { "label": "Under 18", "next": "Q2_under18_safe" },
+            { "label": "18-24", "next": "Q2_youth_foster" },
+            { "label": "25+", "next": "Q2_adult_kids" }
+          ],
+          "llm_fallback": false
+        },
+
+        "Q2_under18_safe": {
+          "type": "question",
+          "prompt": "Are you safe right now?",
+          "options": [
+            {
+              "label": "No",
+              "leaf": "safe_place_line",
+              "also_dispatch": "crossroads_street"
+            },
+            { "label": "Yes", "leaf": "crossroads_dropin" }
+          ]
+        },
+
+        "Q2_youth_foster": {
+          "type": "question",
+          "prompt": "Were you in foster care at age 14 or older?",
+          "options": [
+            {
+              "label": "Yes",
+              "set_flag": { "foster_history": true },
+              "next": "Q3_youth_need"
+            },
+            { "label": "No", "next": "Q3_youth_need" },
+            { "label": "Not sure", "next": "Q3_youth_need" }
+          ]
+        },
+
+        "Q3_youth_need": {
+          "type": "question",
+          "prompt": "What do you need most right now?",
+          "options": [
+            {
+              "label": "Bed tonight",
+              "set_flag": { "needs_bed_tonight": true },
+              "next": "Q4_youth_vulnerability"
+            },
+            { "label": "Housing (not shelter)", "next": "Q4_youth_housing" },
+            {
+              "label": "Help planning / case mgmt",
+              "leaf": "crossroads_dropin"
+            }
+          ]
+        },
+
+        "Q4_youth_vulnerability": {
+          "type": "question",
+          "prompt": "Any of these apply? (pick one)",
+          "options": [
+            {
+              "label": "Pregnant or parenting",
+              "leaf": "bridges",
+              "priority": "high"
+            },
+            {
+              "label": "Fleeing violence or trafficking",
+              "set_flag": { "dv_flag": true }
+            },
+            {
+              "label": "None of these",
+              "leaf": "bridges",
+              "fallback": "crossroads_dropin"
+            }
+          ]
+        },
+
+        "Q4_youth_housing": {
+          "type": "question",
+          "prompt": "Do you have income or a housing voucher?",
+          "options": [
+            {
+              "label": "I have a voucher",
+              "set_flag": { "has_voucher": true },
+              "leaf": "nextenant"
+            },
+            { "label": "I have some income", "leaf": "rapid_rehousing_intake" },
+            {
+              "label": "Neither",
+              "leaf": "bridges",
+              "fallback": "second_light"
+            }
+          ]
+        },
+
+        "Q2_adult_kids": {
+          "type": "question",
+          "prompt": "Do you have children under 18 in your care right now?",
+          "options": [
+            {
+              "label": "Yes",
+              "set_flag": { "with_kids": true },
+              "leaf": "family_handoff"
+            },
+            { "label": "No", "next": "Q3_adult_tonight" }
+          ]
+        },
+
+        "Q3_adult_tonight": {
+          "type": "question",
+          "prompt": "Do you need a bed tonight?",
+          "options": [
+            {
+              "label": "Yes",
+              "set_flag": { "needs_bed_tonight": true },
+              "next": "Q4_adult_timeofday"
+            },
+            { "label": "No", "next": "Q4_adult_situation" }
+          ]
+        },
+
+        "Q4_adult_timeofday": {
+          "type": "computed",
+          "compute": "time_of_day",
+          "branches": [
+            {
+              "when": "07:00-17:00_weekday",
+              "leaf": "open_door",
+              "fallback": "second_light"
+            },
+            {
+              "when": "otherwise",
+              "leaf": "second_light",
+              "fallback": "center_of_hope"
+            }
+          ]
+        },
+
+        "Q4_adult_situation": {
+          "type": "question",
+          "prompt": "Which best describes you right now?",
+          "options": [
+            {
+              "label": "On the street / in a car",
+              "leaf": "open_door",
+              "then_refer": "second_light"
+            },
+            {
+              "label": "Couch surfing / doubled up",
+              "leaf": "open_door",
+              "then_refer": "rapid_rehousing_intake"
+            },
+            {
+              "label": "I have a voucher, need a home",
+              "set_flag": { "has_voucher": true },
+              "leaf": "nextenant"
+            },
+            {
+              "label": "Facing eviction",
+              "leaf": "rapid_rehousing_intake",
+              "priority": "prevention"
+            }
+          ]
+        }
+      }
+    },
+
+    "worried_about_someone": {
+      "root": "QW1",
+      "nodes": {
+        "QW1": {
+          "type": "question",
+          "prompt": "Who is the person you're worried about?",
+          "options": [
+            { "label": "Adult, outside right now", "leaf": "hot_team" },
+            { "label": "Youth on the street", "leaf": "crossroads_street" },
+            {
+              "label": "Someone in my home who wants help",
+              "action": "share_person_in_need_link"
+            },
+            { "label": "In immediate danger", "action": "call_911_request_hot" }
+          ]
+        }
+      }
+    },
+
+    "case_manager": {
+      "type": "filter_ui",
+      "filters": [
+        "age_bracket",
+        "foster_history",
+        "with_kids",
+        "has_voucher",
+        "dv_flag",
+        "has_photo_id",
+        "needs_bed_tonight",
+        "pregnant_parenting"
+      ],
+      "live_inventory_source": "/api/system-status",
+      "actions": [
+        "one_click_referral",
+        "prefilled_intake_packet",
+        "warm_handoff_call"
+      ]
+    },
+
+    "ready_to_help": {
+      "root": "R1_how",
+      "nodes": {
+        "R1_how": {
+          "type": "question",
+          "prompt": "How would you like to help?",
+          "options": [
+            { "label": "List a rental property", "leaf": "nextenant" },
+            { "label": "Volunteer my time", "leaf": "volunteer_coordinator" },
+            { "label": "Donate funds", "leaf": "donate_info" },
+            {
+              "label": "Hire someone exiting homelessness",
+              "leaf": "employer_partner"
+            }
+          ]
+        }
+      }
+    }
+  },
+
+  "llm_fallback_policy": {
+    "when_invoked": [
+      "user taps 'I don't see my situation'",
+      "free-text input on an opt-in field",
+      "multiple leaves qualify and a tradeoff explanation is requested"
+    ],
+    "constraints": [
+      "MUST map input to an existing node ID or endpoint ID; MUST NOT invent endpoints",
+      "MUST return structured JSON: { next_node | leaf, set_flags, confidence }",
+      "IF confidence < 0.8 THEN escalate to human navigator with collected context",
+      "MUST log every invocation with input, output, and rationale for offline audit"
+    ]
+  }
+}
