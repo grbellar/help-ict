@@ -240,6 +240,12 @@
     color: var(--ink-soft);
     letter-spacing: 0.02em;
   }
+  .flag-pill.priority {
+    background: #fde8d3;
+    color: #7a3a0a;
+    border: 1px solid #e0a46a;
+    font-weight: 600;
+  }
 
   .choices {
     display: flex;
@@ -892,9 +898,15 @@ function appendBreadcrumb(main) {
   const crumb = el('div', { className: 'breadcrumb' });
   crumb.appendChild(el('button', { className: 'back', text: '\u2190 start over', on: { click: goHome } }));
   const trueFlags = Object.entries(state.flags).filter(([k,v]) => v === true && !k.startsWith('_'));
-  if (trueFlags.length) {
+  if (trueFlags.length || state.flags.foster_history) {
     const row = el('div', { className: 'flag-row' });
-    trueFlags.forEach(([k]) => row.appendChild(el('span', { className: 'flag-pill', text: k.replace(/_/g, ' ') })));
+    if (state.flags.foster_history) {
+      row.appendChild(el('span', { className: 'flag-pill priority', text: 'priority: foster history' }));
+    }
+    trueFlags.forEach(([k]) => {
+      if (k === 'foster_history') return;
+      row.appendChild(el('span', { className: 'flag-pill', text: k.replace(/_/g, ' ') }));
+    });
     crumb.appendChild(row);
   }
   main.appendChild(crumb);
@@ -1142,6 +1154,7 @@ function buildMetaList(ep) {
   if (ep.address) rows.push({ k: 'Address', text: ep.address });
   if (ep.hours) rows.push({ k: 'Hours', text: ep.hours });
   if (ep.hours_today) rows.push({ k: 'Today', text: ep.hours_today });
+  if (ep.queue_minutes) rows.push({ k: 'Wait', text: '~' + ep.queue_minutes + ' min' });
   if (ep.phone) rows.push({ k: 'Phone', link: { text: ep.phone, href: 'tel:' + ep.phone.replace(/[^0-9+]/g,'') } });
   if (ep.crisis_line) rows.push({ k: '24h line', link: { text: ep.crisis_line, href: 'tel:' + ep.crisis_line.replace(/[^0-9+]/g,'') } });
   if (ep.email) rows.push({ k: 'Email', link: { text: ep.email, href: 'mailto:' + ep.email } });
@@ -1232,11 +1245,13 @@ function buildCmRow(ep) {
   if (cap.slots_open !== undefined) bits.push(cap.slots_open + ' slots');
   if (cap.surge_beds_added) bits.push('+' + cap.surge_beds_added + ' surge');
   if (cap.waitlist) bits.push(cap.waitlist + '-person waitlist');
+  if (ep.queue_minutes) bits.push('~' + ep.queue_minutes + ' min wait');
   if (ep.offline_reason) bits.push(ep.offline_reason.replace(/_/g,' '));
 
   const statusClass =
       ep.status === 'offline' ? 'offline'
     : ep.status === 'at_capacity' ? 'capacity'
+    : ep.status === 'at_capacity_soon' ? 'capacity'
     : ep.status === 'reduced_hours' ? 'reduced'
     : ep.status === 'surge' ? 'surge'
     : 'online';

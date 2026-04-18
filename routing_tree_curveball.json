@@ -19,20 +19,28 @@
     "center_of_hope": {
       "status": "reduced_hours",
       "hours_today": "10:00a-4:00p",
-      "capacity": { "beds_open": 2 }
+      "capacity": { "beds_open": 2 },
+      "queue_minutes": 35
     },
     "second_light": {
       "status": "online",
       "capacity_override": { "beds_open": 6, "surge_beds_added": 20 },
-      "note": "Activated 20 surge cots for weather displacement."
+      "queue_minutes": 45,
+      "note": "20 surge cots activated. Intake queue ~45 min, backed up behind weather caseload."
     },
     "bridges": {
       "status": "at_capacity",
       "capacity": { "beds_open": 0, "waitlist": 4 },
       "reroute_to": [
         "crossroads_dropin_with_emergency_placement",
-        "dcf_il_emergency_placement"
+        "dcf_emergency_placement"
       ]
+    },
+    "crossroads_dropin": {
+      "status": "at_capacity_soon",
+      "capacity_override": { "slots_open": 1, "beds_open": 1, "total_beds": 12 },
+      "queue_minutes": 30,
+      "note": "1 of 12 beds remaining. 4 DCF-flagged youth inbound within 72 hrs - will exceed remaining capacity."
     },
     "safe_place_line": {
       "status": "online",
@@ -74,15 +82,24 @@
     {
       "id": "override_youth_emergency_placement",
       "active": true,
-      "condition": "endpoint_status.bridges.status == 'at_capacity'",
-      "rule": "Youth routed to BRIDGES are auto-flagged for DCF emergency placement + CrossRoads overnight.",
+      "condition": "endpoint_status.bridges.status == 'at_capacity' AND endpoint_status.crossroads_dropin.slots_open <= 2",
+      "rule": "BRIDGES full AND CrossRoads near-full (1/12) - escalate youth to DCF emergency placement with warm handoff to on-call supervisor. First youth still goes to the last CrossRoads bed; remaining 3 hold at DCF placement path.",
       "applies_to_nodes": ["Q4_youth_vulnerability", "Q4_youth_housing"],
       "new_leaf_logic": {
-        "primary": "crossroads_dropin",
+        "primary": "dcf_emergency_placement",
         "addon": "dcf_il_emergency_placement_ticket",
-        "escalation": "DCF expects shelter presentation within 72 hrs for 4 transition-age youth. Ticket auto-files on referral.",
-        "bridges_waitlist": "attach_to_referral"
+        "escalation": "BRIDGES full. CrossRoads at 1/12. DCF 72-hr clock on 4 transition-age youth. Warm handoff to DCF on-call supervisor is the primary path; case held pending placement confirmation.",
+        "bridges_waitlist": "attach_to_referral",
+        "crossroads_waitlist": "attach_to_referral",
+        "priority": "foster_youth_priority_queue"
       }
+    },
+    {
+      "id": "override_foster_youth_priority",
+      "active": true,
+      "condition": "flags.foster_history == true",
+      "action": "mark_priority",
+      "message": "Foster-history referrals get front-of-queue at any endpoint during the emergency window. Visible to case managers; never exclusive - adult intake still flows through the same tree."
     }
   ],
 

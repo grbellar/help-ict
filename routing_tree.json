@@ -198,6 +198,23 @@
         { "name": "Evergreen Community Center" }
       ],
       "status": "standby"
+    },
+    "dcf_emergency_placement": {
+      "name": "DCF Emergency Placement (on-call supervisor)",
+      "operator": "Kansas DCF Independent Living + CoC partners",
+      "phone": "785-368-8192",
+      "role": "emergency_escalation",
+      "offers": [
+        "warm_handoff_to_dcf_supervisor",
+        "temporary_hold_at_second_light_youth_area",
+        "72hr_placement_window"
+      ],
+      "eligibility": [
+        "foster_history OR transition_age_16_to_22",
+        "placement_disrupted"
+      ],
+      "status": "standby",
+      "note": "Activated when BRIDGES and CrossRoads are both at or near capacity. DCF on-call supervisor pairs youth with placement across the network; youth held at a designated Second Light youth area until DCF confirms."
     }
   },
 
