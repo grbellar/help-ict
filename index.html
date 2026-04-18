@@ -39,11 +39,6 @@
   body {
     font-family: var(--body);
     background: var(--cream);
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, #fef1dc 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 100% 100%, #fae2d2 0%, transparent 55%),
-      radial-gradient(ellipse 40% 40% at 0% 80%, #f3ecd6 0%, transparent 55%);
-    background-attachment: fixed;
     color: var(--ink);
     min-height: 100vh;
     display: flex;
@@ -52,17 +47,6 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "ss01", "ss02";
     position: relative;
-  }
-
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.5;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0 0.09 0 0 0 0.04 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    z-index: 0;
   }
 
   .page {
@@ -102,35 +86,33 @@
     font-family: var(--display);
     font-size: 34px;
     font-weight: 500;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
     color: var(--ink);
-    font-variation-settings: "opsz" 72, "SOFT" 80;
+    font-variation-settings: "opsz" 72, "SOFT" 20;
   }
 
   .logo .dot {
     color: var(--sunset);
     display: inline-block;
-    margin: 0 6px;
+    margin: 0 4px;
     transform: translateY(-2px);
     font-weight: 700;
   }
 
   .logo .ict {
     color: var(--sunset);
-    font-style: italic;
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: 0.005em;
   }
 
   .tagline {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: 15px;
+    font-family: var(--body);
+    font-size: 12.5px;
     color: var(--ink-soft);
-    margin-top: 8px;
-    font-weight: 400;
-    font-variation-settings: "opsz" 14, "SOFT" 100;
-    letter-spacing: 0;
+    margin-top: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   main {
@@ -147,13 +129,13 @@
   .emergency {
     background: var(--peach);
     color: var(--peach-ink);
-    padding: 14px 20px;
-    border-radius: 999px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border-left: 3px solid var(--sunset);
     font-size: 14px;
     margin-bottom: 40px;
-    text-align: center;
+    text-align: left;
     font-weight: 500;
-    box-shadow: var(--shadow-soft);
     animation: rise 0.8s ease-out 0.1s both;
   }
 
@@ -183,14 +165,14 @@
 
   .prompt {
     font-family: var(--display);
-    font-size: clamp(54px, 9vw, 88px);
+    font-size: clamp(48px, 8vw, 76px);
     font-weight: 400;
     text-align: center;
     margin-bottom: 44px;
-    letter-spacing: -0.035em;
-    line-height: 1;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
     color: var(--ink);
-    font-variation-settings: "opsz" 144, "SOFT" 80;
+    font-variation-settings: "opsz" 144, "SOFT" 20;
     animation: rise 0.9s ease-out 0.2s both;
   }
 
@@ -204,7 +186,7 @@
     color: var(--sunset);
     font-style: italic;
     font-weight: 500;
-    font-variation-settings: "opsz" 144, "SOFT" 100;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
   }
 
   .prompt .dots {
@@ -335,31 +317,24 @@
     font-weight: 500;
   }
 
-  .choice:nth-of-type(2) .choice-icon { background: #e8efdc; color: var(--leaf); }
-  .choice:nth-of-type(3) .choice-icon { background: #dde9f0; color: var(--river); }
-  .choice:nth-of-type(4) .choice-icon { background: #f4e4c4; color: #8a5a1a; }
-  .choice:nth-of-type(5) .choice-icon { background: var(--sunset-glow); color: var(--sunset-deep); }
-
-  .choice:hover .choice-icon { transform: rotate(-4deg) scale(1.05); }
-
   .choice-icon svg { width: 24px; height: 24px; }
 
   .label-group { flex: 1; }
 
   .label {
     font-family: var(--display);
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 500;
     margin-bottom: 3px;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
     color: var(--ink);
-    font-variation-settings: "opsz" 36, "SOFT" 80;
+    font-variation-settings: "opsz" 36, "SOFT" 20;
   }
 
   .label em {
-    font-style: italic;
-    color: var(--sunset);
-    font-weight: 500;
+    font-style: normal;
+    color: inherit;
+    font-weight: inherit;
   }
 
   .sublabel {
@@ -400,12 +375,12 @@
 
   .endpoint h2 {
     font-family: var(--display);
-    font-size: clamp(30px, 4.5vw, 42px);
+    font-size: clamp(28px, 4.2vw, 38px);
     font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
     margin-bottom: 18px;
-    font-variation-settings: "opsz" 60, "SOFT" 80;
+    font-variation-settings: "opsz" 60, "SOFT" 20;
   }
 
   .endpoint .meta {
@@ -625,13 +600,15 @@
   }
 
   footer p {
-    font-family: var(--display);
-    font-style: italic;
+    font-family: var(--body);
     font-weight: 400;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--ink-soft);
-    margin-bottom: 14px;
-    font-variation-settings: "opsz" 14, "SOFT" 100;
+    margin-bottom: 16px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
   }
 
   .footer-links { display: inline-flex; gap: 18px; align-items: center; }
@@ -648,25 +625,18 @@
   footer .dot-sep { color: var(--hairline); font-size: 18px; line-height: 0; }
 
   .signature {
-    margin-top: 24px;
-    font-family: var(--display);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 12px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 11.5px;
     color: var(--ink-muted);
-    letter-spacing: 0.02em;
-    font-variation-settings: "opsz" 14, "SOFT" 100;
-  }
-
-  .signature::before,
-  .signature::after {
-    content: "";
-    display: inline-block;
-    width: 28px;
-    height: 1px;
-    background: var(--hairline);
-    vertical-align: middle;
-    margin: 0 12px;
+    letter-spacing: 0.04em;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
   }
 
   .curveball-toggle {
@@ -747,15 +717,15 @@
 <main id="main"></main>
 
 <footer>
-  <p>Every door in Wichita, stitched into one.</p>
+  <p>A coordinated front door for Wichita's shelter, youth, and housing network.</p>
   <div class="footer-links">
     <a href="#" id="footerHome">Home</a>
     <span class="dot-sep">·</span>
     <a href="#">Partners</a>
     <span class="dot-sep">·</span>
-    <a href="#">Espanol</a>
+    <a href="#">Español</a>
   </div>
-  <div class="signature">made in ict, for ict</div>
+  <div class="signature">In partnership with the City of Wichita, United Way of the Plains, and the Coalition to End Homelessness.</div>
   <div class="curveball-toggle">
     <span>demo mode</span>
     <button id="curveballBtn" type="button">Simulate 1pm curveball</button>
